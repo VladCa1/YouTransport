@@ -1,6 +1,7 @@
 /node_modules/
 /target/
 */target/**
+/target/**
 **/META-INF/
 !.mvn/wrapper/maven-wrapper.jar
 
