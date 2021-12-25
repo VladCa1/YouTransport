@@ -1,9 +1,0 @@
-{
-  "compatibilityMode": false,
-  "productionMode": false,
-  "npmFolder": "C:\\Repos\\YouTransport\\TransUI",
-  "generatedFolder": "C:\\Repos\\YouTransport\\TransUI\\target\\frontend",
-  "frontendFolder": "C:\\Repos\\YouTransport\\TransUI\\frontend",
-  "pnpm.enable": false,
-  "require.home.node": false
-}
