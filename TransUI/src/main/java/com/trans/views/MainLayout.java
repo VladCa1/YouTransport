@@ -1,12 +1,17 @@
 package com.trans.views;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.trans.security.SecurityService;
-import com.trans.security.SecurityUtils;
+import com.trans.utils.SecurityUtils;
 import com.trans.views.about.AboutView;
-import com.trans.views.goods.GoodsView;
-import com.trans.views.helloworld.HelloWorldView;
+import com.trans.views.goods.GoodsViewImpl;
 import com.trans.views.login.LoginView;
 import com.trans.views.login.RegisterView;
+import com.trans.views.myOffers.MyOffersViewImpl;
 import com.trans.views.transport.TransportView;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
@@ -22,16 +27,10 @@ import com.vaadin.flow.component.html.ListItem;
 import com.vaadin.flow.component.html.Nav;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.html.UnorderedList;
-import com.vaadin.flow.component.orderedlayout.FlexComponent.Alignment;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.PWA;
 import com.vaadin.flow.theme.Theme;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * The main view is a top-level placeholder for other views.
@@ -160,14 +159,11 @@ public class MainLayout extends AppLayout {
 			private static final long serialVersionUID = 6712929646047049448L;
 
 		{	if(SecurityUtils.isUserLoggedIn()){
-				add(new MenuItemInfo("My Offers", "none", MyOffers.class));
-	        	if(SecurityUtils.getUserRoles().contains("ROLE_Goods")) {
-	        		add(new MenuItemInfo("Goods", "none", GoodsView.class));           
-	        	}else if(SecurityUtils.getUserRoles().contains("ROLE_Transport")){
-	        		add(new MenuItemInfo("Transport", "none", TransportView.class));        
-	        	}
+				add(new MenuItemInfo("My Offers", "none", MyOffersViewImpl.class));
+				add(new MenuItemInfo("Goods Offers", "none", GoodsViewImpl.class));           
+				add(new MenuItemInfo("Transport Offers", "none", TransportView.class));        
 			}else {
-				add(new MenuItemInfo("Hello World", "la-la globe", HelloWorldView.class));
+				add(new MenuItemInfo("About Transport You", "la-la globe", AboutView.class));
 			}
         }};
 

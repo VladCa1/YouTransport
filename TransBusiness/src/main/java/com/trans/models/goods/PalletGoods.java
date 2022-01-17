@@ -23,14 +23,25 @@ public class PalletGoods extends GoodsEntity{
 	
 	@Getter
 	@Setter
-	private String value;
+	private double value;
 	
 	@Getter
 	@Setter
-	private int tonnage;
+	private double tonnage;
 	
 	@Getter
 	@Setter
 	private boolean canBeStacked;
+	
+	public PalletGoods(double value, String unit, double palletSize) {
+		this.unit = unit;
+		this.value = value;
+		this.tonnage = palletSize;
+		canBeStacked = true;
+	}
+	
+	public PalletGoods() {
+		// TODO Auto-generated constructor stub
+	}
 	
 }

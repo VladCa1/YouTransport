@@ -12,8 +12,8 @@ public class Runner implements CommandLineRunner{
 	
 	@Override
 	public void run(String... args) throws Exception {
-		User toSave = new User("Vlad", "VladParola", "vlad@email.com");
-		repository.save(toSave);
+//		User toSave = new User("Vlad", "VladParola", "vlad@email.com");
+//		repository.save(toSave);
 		
 	}
 

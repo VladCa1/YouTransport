@@ -1,7 +1,8 @@
 package com.trans.models.offer;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,25 +28,28 @@ public class Offer {
 	private Long id;
 	
 	@Getter
-	@OneToOne
+	@Setter
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval=true)
 	private Route route;
 	
 	@Getter
-	@OneToOne
+	@Setter
+	@OneToOne(cascade = CascadeType.ALL)
 	private Pay pay;
 	
 	@Getter
+	@Setter
 	private String description;
 	
 	@Getter
 	@Setter
 	@Column(nullable = false)
-	private LocalDateTime fromDate;
+	private LocalDate fromDate;
 	
 	@Getter
 	@Setter
 	@Column(nullable = true)
-	private LocalDateTime toDate;
+	private LocalDate toDate;
 	
 	
 }

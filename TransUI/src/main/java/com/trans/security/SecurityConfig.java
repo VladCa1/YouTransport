@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.trans.security.data.MyUserDetailsService;
+import com.trans.utils.SecurityUtils;
 
 @EnableWebSecurity
 @Configuration

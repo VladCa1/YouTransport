@@ -2,6 +2,7 @@ package com.trans.security;
 
 import org.springframework.stereotype.Component;
 
+import com.trans.utils.SecurityUtils;
 import com.trans.views.MainLayout;
 import com.trans.views.login.LoginView;
 import com.trans.views.login.RegisterView;

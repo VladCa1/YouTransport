@@ -2,7 +2,6 @@
 /target/
 */target/**
 /target/**
-**/META-INF/
 !.mvn/wrapper/maven-wrapper.jar
 
 .apt_generated

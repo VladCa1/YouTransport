@@ -22,10 +22,20 @@ public class LiquidGoods extends GoodsEntity{
 	
 	@Getter
 	@Setter
-	private int value;
+	private double value;
 	
 	@Getter
 	@Setter
-	private int tonnage;
+	private double tonnage;
 	
+	
+	public LiquidGoods(Double goodsSize, String string, Double i) {
+		value = goodsSize.doubleValue();
+		unit = string;
+		tonnage = i;
+	}
+	
+	public LiquidGoods() {
+		// TODO Auto-generated constructor stub
+	}
 }

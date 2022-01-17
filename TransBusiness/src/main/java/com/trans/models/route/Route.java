@@ -2,6 +2,7 @@ package com.trans.models.route;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,27 +18,27 @@ import lombok.Setter;
 
 @Entity
 public class Route {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Getter
 	private Long id;
-	
+
 	@Getter
-	@OneToOne
+	@OneToOne(orphanRemoval=false)
 	private Location from;
-	
+
 	@Getter
-	@OneToOne
+	@OneToOne(orphanRemoval=false)
 	private Location to;
-	
+
 	@Getter
-	@OneToMany
+	@OneToMany(orphanRemoval=false)
 	private List<Location> intermediary;
-	
+
 	@Getter
 	@Setter
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private Offer offer;
 
 	public Route(Location from, Location to, List<Location> intermediary) {
@@ -54,10 +55,9 @@ public class Route {
 	public Route(Location from) {
 		super();
 		this.from = from;
-		this.to = new Location(Constants.NOT_SPECIFIED, Constants.NOT_SPECIFIED);
-		
+		this.to = new Location(Constants.NOT_SPECIFIED, Constants.NOT_SPECIFIED, 0,
+				0, 0);
+
 	}
-	
-	
-	
+
 }

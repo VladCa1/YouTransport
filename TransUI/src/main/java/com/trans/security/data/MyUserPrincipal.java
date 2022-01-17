@@ -75,5 +75,9 @@ public class MyUserPrincipal implements UserDetails {
 		// TODO Auto-generated method stub
 		return true;
 	}
+	
+	public String getUserToken() {
+		return user.getToken();
+	}
 
 }

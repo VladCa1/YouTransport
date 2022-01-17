@@ -1,5 +1,6 @@
 package com.trans.models.pay;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -20,13 +21,17 @@ import lombok.Setter;
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Pay {
 
+	public static final String PER_DAY = "Per Day (/day)";
+	public static final String PER_HOUR = "Per Hour (/hr)";
+	public static final String PER_KM = "Per Kilometer (/km)";
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Getter
 	private Long id;
 	
 	@Getter
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private Offer offer;
 	
 	@Getter

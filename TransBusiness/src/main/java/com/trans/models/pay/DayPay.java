@@ -12,7 +12,7 @@ import lombok.Getter;
 public class DayPay extends Pay{
 
 	@Getter
-	private int rate;
+	private double rate;
 	
 	@Getter
 	private String currency;
@@ -20,21 +20,21 @@ public class DayPay extends Pay{
 	@Getter
 	private int period;
 
-	public DayPay(int rate, String currency, int period) {
+	public DayPay(Double rate, String currency, int period) {
 		super();
 		this.rate = rate;
 		this.currency = currency;
 		this.period = period;
 	}
 
-	public DayPay(int rate, String currency) {
+	public DayPay(Double rate, String currency) {
 		super();
 		this.rate = rate;
 		this.currency = currency;
 		this.period = 1;
 	}
 	
-	public DayPay(int rate) {
+	public DayPay(Double rate) {
 		super();
 		this.rate = rate;
 		this.currency = Constants.EURO;

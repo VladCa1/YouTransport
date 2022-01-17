@@ -1,5 +1,6 @@
 package com.trans.models.route;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,25 +16,37 @@ public class Location {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Getter
 	private Long id;
-	
+
 	@Getter
 	private String country;
-	
+
 	@Getter
 	private String city;
-	
+
 	@Getter
-	@ManyToOne
+	private double latitude;
+
+	@Getter
+	private float longitude;
+
+	@Getter
+	private float altitude;
+
+	@Getter
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Route route;
 
-	public Location(String country, String city) {
+	public Location(String country, String city, double latituted, float longitude, float altitude) {
 		super();
 		this.country = country;
 		this.city = city;
+		this.latitude = altitude;
+		this.longitude = longitude;
+		this.altitude = altitude;
 	}
-	
+
 	public Location() {
 		super();
 	}
-	
+
 }

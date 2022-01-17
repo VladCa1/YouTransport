@@ -14,7 +14,7 @@ public class HourPay extends Pay{
 
 	@Getter
 	@Column(nullable = false)
-	private int rate;
+	private double rate;
 	
 	@Getter
 	@Column(nullable = false)
@@ -24,21 +24,21 @@ public class HourPay extends Pay{
 	@Column(nullable = false)
 	private int period;
 
-	public HourPay(int rate, String currency, int period) {
+	public HourPay(double rate, String currency, int period) {
 		super();
 		this.rate = rate;
 		this.currency = currency;
 		this.period = period;
 	}
 
-	public HourPay(int rate, String currency) {
+	public HourPay(double rate, String currency) {
 		super();
 		this.rate = rate;
 		this.currency = currency;
 		this.period = 1;
 	}
 	
-	public HourPay(int rate) {
+	public HourPay(double rate) {
 		super();
 		this.rate = rate;
 		this.currency = Constants.EURO;

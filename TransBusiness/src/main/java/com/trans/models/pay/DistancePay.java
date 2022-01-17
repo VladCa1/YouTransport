@@ -14,7 +14,7 @@ public class DistancePay extends Pay{
 	
 	@Getter
 	@Column(nullable = false)
-	private int rate;
+	private double rate;
 	
 	@Getter
 	@Column(nullable = false)
@@ -24,21 +24,21 @@ public class DistancePay extends Pay{
 	@Column(nullable = false)
 	private String distanceUnit;
 
-	public DistancePay(int rate, String currency, String distanceUnit) {
+	public DistancePay(double rate, String currency, String distanceUnit) {
 		super();
 		this.rate = rate;
 		this.currency = currency;
 		this.distanceUnit = distanceUnit;
 	}
 
-	public DistancePay(int rate, String currency) {
+	public DistancePay(double rate, String currency) {
 		super();
 		this.rate = rate;
 		this.currency = currency;
 		this.distanceUnit = Constants.KM;
 	}
 
-	public DistancePay(int rate) {
+	public DistancePay(double rate) {
 		super();
 		this.rate = rate;
 		this.currency = Constants.EURO;

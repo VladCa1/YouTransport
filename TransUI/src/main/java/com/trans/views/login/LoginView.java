@@ -1,6 +1,6 @@
 package com.trans.views.login;
 
-import com.trans.security.SecurityUtils;
+import com.trans.utils.SecurityUtils;
 import com.trans.views.MainLayout;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;

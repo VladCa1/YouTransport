@@ -23,13 +23,24 @@ public class FreeFlowGoods extends GoodsEntity{
 	@Getter
 	@Setter
 	private String unit;
+
+	@Getter
+	@Setter
+	private double value;
 	
 	@Getter
 	@Setter
-	private int value;
+	private double tonnage;
 	
-	@Getter
-	@Setter
-	private int tonnage;
+	public FreeFlowGoods(Double goodsSize, String string, Double i) {
+		value = goodsSize.doubleValue();
+		unit = string;
+		tonnage = i;
+	}
+	
+	public FreeFlowGoods() {
+		
+	}
+	
 	
 }

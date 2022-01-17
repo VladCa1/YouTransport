@@ -2,6 +2,7 @@ package com.trans.models.offer;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
@@ -22,7 +23,7 @@ public class GoodsOffer extends Offer{
 	@Getter
 	@Setter
 	@JoinColumn(name = "GO_AGENT")
-	@ManyToOne
+	@ManyToOne	
 	private CAgent providerAgent;
 	
 	@Getter
@@ -32,7 +33,7 @@ public class GoodsOffer extends Offer{
 	
 	@Getter
 	@Setter
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	private List<GoodsEntity> goods;
 	
 }
