@@ -68,7 +68,7 @@ public class LocationServiceImpl implements LocationService{
 
 	@Override
 	public DistanceMatrixResponse getDirectionInfo(String origins, String destinations) throws IOException, NoSuchAlgorithmException, KeyManagementException {
-		String uri = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + origins + "&destinations=" + destinations + "&key=AIzaSyBT71UJMKu10kYUMALajWf_fKSyTMWAq6g";
+		String uri = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + origins + "&destinations=" + destinations + "&API_KEY";
 		RestTemplate restTemplate = new RestTemplate();
 
 		DistanceMatrixResponse response = restTemplate.getForObject(uri, DistanceMatrixResponse.class);
