@@ -7,7 +7,7 @@
     "@polymer/iron-fit-behavior": "3.0.2",
     "@polymer/iron-flex-layout": "3.0.1",
     "@polymer/iron-icon": "3.0.1",
-    "@polymer/iron-iconset-svg": "3.0.1",
+    "@polymer/iron-iconset-svg": "^3.0.1",
     "@polymer/iron-list": "3.1.0",
     "@polymer/iron-media-query": "3.0.1",
     "@polymer/iron-meta": "3.0.1",
@@ -188,6 +188,6 @@
       "webpack-dev-server": "3.11.0",
       "webpack-merge": "4.2.2"
     },
-    "hash": "53e0302564e715932e045ce906dff981033e3917d6856485171dd2a43a38522f"
+    "hash": "e07f0b1d29bee2ac5378ba42390df965ecc0a66d34f784d103c6fce183682cec"
   }
 }

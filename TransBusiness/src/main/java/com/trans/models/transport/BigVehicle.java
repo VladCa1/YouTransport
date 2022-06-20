@@ -4,7 +4,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorValue(value = "BigV")
+@DiscriminatorValue(value = "BigVehicle")
 public class BigVehicle extends TransportEntity{
 
 }

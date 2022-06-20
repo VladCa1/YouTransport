@@ -1,20 +1,12 @@
 package com.trans.models.transport;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
+import com.trans.models.StringListConverter;
 import com.trans.models.characteristic.TransportEntityProperty;
 import com.trans.models.offer.TransportOffer;
 
@@ -31,32 +23,37 @@ public class TransportEntity {
 	private Long id;
 	
 	@Getter
-	private boolean assinged;
-	
-	@Getter
+	@Setter
 	private String make;
 	
 	@Getter
+	@Setter
 	private Date fabricationDate;
 	
 	@Getter
-	@OneToOne
-	private Driver driver;
+	@Setter
+	private Long driverId;
 	
 	@Getter
+	@Setter
 	private String type;
 	
 	@Getter
-	private int value;
+	@Setter
+	private int horsePower;
 	
 	@Getter
-	private String unit;
+	@Setter
+	private double tonnage;
 	
 	@Getter
-	private int tonnage;
-	
-	@Getter
+	@Setter
 	private boolean hazardousMaterialsAccepted;
+
+	@Getter
+	@Setter
+	@Convert(converter = StringListConverter.class)
+	private List<String> acceptedGoods;
 	
 	@Getter
 	@OneToOne

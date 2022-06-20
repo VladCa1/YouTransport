@@ -6,7 +6,6 @@ import java.time.LocalDate;
 import org.springframework.util.StringUtils;
 
 import com.trans.serviceInterface.models.GoodsFormResultEntryDTO;
-import com.trans.utils.SecurityUtils;
 import com.trans.views.myOffers.MyOffersViewImpl;
 import com.trans.views.myOffers.MyOffersView.MyOffersPresenter;
 import com.trans.views.widgets.GoodsTypeSelect;
@@ -23,41 +22,44 @@ public class GoodsOfferFormBinder {
 	
 	private final MyOffersPresenter presenter;
 	
-	private final NewGoodsOfferForm goodsOfferForm;
+	private final GoodsOfferForm goodsOfferForm;
+
+	private BeanValidationBinder<GoodsFormResultEntryDTO> binder;
 	
-	public GoodsOfferFormBinder(NewGoodsOfferForm goodsOfferForm, MyOffersPresenter presenter) {
+	public GoodsOfferFormBinder(GoodsOfferForm goodsOfferForm, MyOffersPresenter presenter) {
 		this.presenter = presenter;
 		this.goodsOfferForm = goodsOfferForm;
+		this.binder = new BeanValidationBinder<>(GoodsFormResultEntryDTO.class);
 	}
 
 	public void bind() throws URISyntaxException {
-		presenter.addChangeBehaviourForLocationSelect(goodsOfferForm.getFromLocationSelect());
-		presenter.addChangeBehaviourForLocationSelect(goodsOfferForm.getToLocationSelect());
-		
-		BeanValidationBinder<GoodsFormResultEntryDTO> binder = new BeanValidationBinder<>(GoodsFormResultEntryDTO.class);
-		
-		binder.forField(goodsOfferForm.getGoodsTypeSelect()).withValidator(this::notEmptyValidatorString).bind("goodsType");
-		binder.forField(goodsOfferForm.getGoodsSizeNumberField()).withValidator(this::notEmptyValidatorNumber).bind("goodsSize");
-		binder.forField(goodsOfferForm.getGoodsPalletSizeNumberField()).withValidator(this::notEmptyValidatorNumberPallet).bind("goodsPalletSize");
-		binder.forField(goodsOfferForm.getGoodsCharactersticsOneTextField()).bind("characteristicOne");
-		binder.forField(goodsOfferForm.getGoodsCharactersiticsTwoTextField()).bind("characteristicTwo");
-		binder.forField(goodsOfferForm.getDescriptionField()).withValidator(this::notEmptyValidatorString).bind("description");
-		binder.forField(goodsOfferForm.getToLocationSelect().getCountrySelect()).withValidator(this::notEmptyValidatorString).bind("toLocationCountry");
-		binder.forField(goodsOfferForm.getToLocationSelect().getCitySelect()).withValidator(this::notEmptyValidatorString).bind("toLocationCity");
-		binder.forField(goodsOfferForm.getFromLocationSelect().getCountrySelect()).withValidator(this::notEmptyValidatorString).bind("fromLocationCountry");
-		binder.forField(goodsOfferForm.getFromLocationSelect().getCitySelect()).withValidator(this::notEmptyValidatorString).bind("fromLocationCity");
-		binder.forField(goodsOfferForm.getPayTypeSelect()).withValidator(this::notEmptyValidatorString).bind("payType");
-		binder.forField(goodsOfferForm.getPayValueNumberField()).withValidator(this::notEmptyValidatorNumber).bind("payValue");
-		binder.forField(goodsOfferForm.getToDatePicker()).withValidator(this::notEmptyValidatorDate).bind("toDate");
-		binder.forField(goodsOfferForm.getFromDatePicker()).withValidator(this::notEmptyValidatorDate).bind("fromDate");
-		
+
+		this.binder.forField(goodsOfferForm.getGoodsTypeSelect()).withValidator(this::notEmptyValidatorString).bind("goodsType");
+		this.binder.forField(goodsOfferForm.getGoodsSizeNumberField()).withValidator(this::notEmptyValidatorNumber).bind("goodsSize");
+		this.binder.forField(goodsOfferForm.getGoodsPalletSizeNumberField()).withValidator(this::notEmptyValidatorNumberPallet).bind("goodsPalletSize");
+		this.binder.forField(goodsOfferForm.getGoodsCharacteristicsOneTextField()).withValidator(this::notEmptyValidatorString).bind("characteristicOne");
+		this.binder.forField(goodsOfferForm.getGoodsCharacteristicsTwoTextField()).bind("characteristicTwo");
+		this.binder.forField(goodsOfferForm.getDescriptionField()).withValidator(this::notEmptyValidatorString).bind("description");
+		this.binder.forField(goodsOfferForm.getToLocationSelect().getCountrySelect()).withValidator(this::notEmptyValidatorString).bind("toLocationCountry");
+		this.binder.forField(goodsOfferForm.getToLocationSelect().getCitySelect()).withValidator(this::notEmptyValidatorString).bind("toLocationCity");
+		this.binder.forField(goodsOfferForm.getFromLocationSelect().getCountrySelect()).withValidator(this::notEmptyValidatorString).bind("fromLocationCountry");
+		this.binder.forField(goodsOfferForm.getFromLocationSelect().getCitySelect()).withValidator(this::notEmptyValidatorString).bind("fromLocationCity");
+		this.binder.forField(goodsOfferForm.getPayTypeSelect()).withValidator(this::notEmptyValidatorString).bind("payType");
+		this.binder.forField(goodsOfferForm.getPayValueNumberField()).withValidator(this::notEmptyValidatorNumber).bind("payValue");
+		this.binder.forField(goodsOfferForm.getPayCurrencySelect()).withValidator(this::notEmptyValidatorString).bind("payCurrency");
+		this.binder.forField(goodsOfferForm.getToDatePicker()).withValidator(this::notEmptyValidatorDate).bind("toDate");
+		this.binder.forField(goodsOfferForm.getFromDatePicker()).withValidator(this::notEmptyValidatorDate).bind("fromDate");
+		this.binder.forField(goodsOfferForm.getDistanceTextField()).withValidator(this::notEmptyValidatorString).bind("distance");
+		this.binder.forField(goodsOfferForm.getDistanceDurationTextField()).withValidator(this::notEmptyValidatorString).bind("duration");
+
+
 		goodsOfferForm.getSaveButton().addClickListener(event -> {
 			try {
 				// Create empty bean to store the details into
 				GoodsFormResultEntryDTO goodsFormResult = new GoodsFormResultEntryDTO();
 				
 				// Run validators and write the values to the bean
-				binder.writeBean(goodsFormResult);
+				this.binder.writeBean(goodsFormResult);
 				
 
 				// Typically, you would here call backend to store the bean
@@ -66,7 +68,7 @@ public class GoodsOfferFormBinder {
 				
 				if(presenter.saveUpdate(goodsFormResult)) {
 					showSuccess();
-					binder.getFields().forEach(HasValue::clear);
+					this.binder.getFields().forEach(HasValue::clear);
 				}else {
 					showError();
 					throw new Exception("Save error");
@@ -82,7 +84,11 @@ public class GoodsOfferFormBinder {
 			}
 		});
 	}
-	
+
+	public void addChangeListenerToLocation() throws URISyntaxException {
+		presenter.addChangeBehaviourForLocationSelect(goodsOfferForm.getFromLocationSelect());
+		presenter.addChangeBehaviourForLocationSelect(goodsOfferForm.getToLocationSelect());
+	}
 
 
 	private ValidationResult notEmptyValidatorString(String value, ValueContext ctx) {
@@ -107,7 +113,7 @@ public class GoodsOfferFormBinder {
 	
 	private ValidationResult notEmptyValidatorNumberPallet(Double value, ValueContext ctx) {
 
-		if(!goodsOfferForm.getGoodsTypeSelect().getValue().equals(GoodsTypeSelect.PALLET_GOODS)) {
+		if(goodsOfferForm.getGoodsTypeSelect().getValue() != null && !goodsOfferForm.getGoodsTypeSelect().getValue().equals(GoodsTypeSelect.PALLET_GOODS)) {
 			return ValidationResult.ok();
 		}
 		
@@ -130,17 +136,34 @@ public class GoodsOfferFormBinder {
 	}
 	
 	
-	private void showSuccess() {
+	public void showSuccess() {
 		Notification notification = Notification.show("The offer has been saved");
 		notification.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
 		
 		UI.getCurrent().navigate(MyOffersViewImpl.class);
-	}	
+	}
+
+	public void showUpdateSuccess(){
+		Notification notification = Notification.show("The offer has been updated");
+		notification.addThemeVariants(NotificationVariant.LUMO_CONTRAST);
+
+		UI.getCurrent().navigate(MyOffersViewImpl.class);
+	}
 	
-	private void showError() {
+	public void showError() {
 		Notification notification = Notification.show("Error saving the offer");
 		notification.addThemeVariants(NotificationVariant.LUMO_ERROR);
 		
 	}
 
+	public GoodsFormResultEntryDTO writeBean() throws URISyntaxException, ValidationException {
+
+		GoodsFormResultEntryDTO bean = new GoodsFormResultEntryDTO();
+		this.binder.writeBean(bean);
+		return bean;
+	}
+
+	public void clearForm() throws URISyntaxException, ValidationException {
+		this.binder.getFields().forEach(HasValue::clear);
+	}
 }

@@ -2,13 +2,7 @@ package com.trans.models.offer;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 import com.trans.models.agent.CAgent;
 import com.trans.models.goods.GoodsEntity;
@@ -33,7 +27,7 @@ public class GoodsOffer extends Offer{
 	
 	@Getter
 	@Setter
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
 	private List<GoodsEntity> goods;
 	
 }

@@ -3,6 +3,9 @@ package com.trans.views;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.trans.views.drivers.DriverViewImpl;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.trans.security.SecurityService;
@@ -12,7 +15,7 @@ import com.trans.views.goods.GoodsViewImpl;
 import com.trans.views.login.LoginView;
 import com.trans.views.login.RegisterView;
 import com.trans.views.myOffers.MyOffersViewImpl;
-import com.trans.views.transport.TransportView;
+import com.trans.views.transport.TransportViewImpl;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -51,10 +54,10 @@ public class MainLayout extends AppLayout {
     public static class MenuItemInfo {
 
         private String text;
-        private String iconClass;
+        private Icon iconClass;
         private Class<? extends Component> view;
 
-        public MenuItemInfo(String text, String iconClass, Class<? extends Component> view) {
+        public MenuItemInfo(String text, Icon iconClass, Class<? extends Component> view) {
             this.text = text;
             this.iconClass = iconClass;
             this.view = view;
@@ -64,7 +67,7 @@ public class MainLayout extends AppLayout {
             return text;
         }
 
-        public String getIconClass() {
+        public Icon getIconClass() {
             return iconClass;
         }
 
@@ -159,11 +162,14 @@ public class MainLayout extends AppLayout {
 			private static final long serialVersionUID = 6712929646047049448L;
 
 		{	if(SecurityUtils.isUserLoggedIn()){
-				add(new MenuItemInfo("My Offers", "none", MyOffersViewImpl.class));
-				add(new MenuItemInfo("Goods Offers", "none", GoodsViewImpl.class));           
-				add(new MenuItemInfo("Transport Offers", "none", TransportView.class));        
+				add(new MenuItemInfo("My Offers", new Icon(VaadinIcon.NEWSPAPER), MyOffersViewImpl.class));
+                if(SecurityUtils.getUserRoles().contains(SecurityUtils.ROLE_TRANSPORT)){
+                    add(new MenuItemInfo("My Drivers", new Icon(VaadinIcon.MALE), DriverViewImpl.class));
+                }
+				add(new MenuItemInfo("Goods Offers", new Icon(VaadinIcon.PACKAGE), GoodsViewImpl.class));
+				add(new MenuItemInfo("Transport Offers", new Icon(VaadinIcon.TRUCK), TransportViewImpl.class));
 			}else {
-				add(new MenuItemInfo("About Transport You", "la-la globe", AboutView.class));
+				add(new MenuItemInfo("About Transport You", new Icon(VaadinIcon.GLOBE), AboutView.class));
 			}
         }};
 
@@ -180,16 +186,20 @@ public class MainLayout extends AppLayout {
         link.addClassNames("flex", "mx-s", "p-s", "relative", "text-secondary");
         link.setRoute(menuItemInfo.getView());
 
-        Span icon = new Span();
-        icon.addClassNames("me-s", "text-l");
-        if (!menuItemInfo.getIconClass().isEmpty()) {
-            icon.addClassNames(menuItemInfo.getIconClass());
-        }
-
         Span text = new Span(menuItemInfo.getText());
         text.addClassNames("font-medium", "text-s");
 
-        link.add(icon, text);
+        if (menuItemInfo.getIconClass() != null) {
+            Icon icon = menuItemInfo.getIconClass();
+            icon.addClassNames("me-s", "text-l");
+            Span iconSpan = new Span(icon);
+
+
+            link.add(icon, text);
+        }else {
+            link.add(text);
+        }
+
         return link;
     }
 

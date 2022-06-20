@@ -2,16 +2,7 @@ package com.trans.models.goods;
 
 import java.util.List;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 import com.trans.models.characteristic.GoodsEntityProperty;
 import com.trans.models.offer.GoodsOffer;
@@ -33,12 +24,17 @@ public class GoodsEntity {
 	private Long id;
 	
 	@Getter
-	@ManyToOne
+	@ManyToOne(
+			cascade = CascadeType.ALL)
 	private GoodsOffer offer;
 	
 	@Getter
 	@Setter
-	@OneToMany
+	@OneToMany(
+			orphanRemoval = true,
+			cascade = CascadeType.ALL,
+			fetch =  FetchType.EAGER)
+	@JoinColumn
 	private List<GoodsEntityProperty> properties;
 
 	@Transient

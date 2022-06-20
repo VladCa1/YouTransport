@@ -3,6 +3,7 @@ package com.trans.utils;
 import com.trans.views.widgets.buttons.CancelButton;
 import com.trans.views.widgets.buttons.OkButton;
 import com.vaadin.componentfactory.EnhancedDialog;
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.dialog.Dialog;
@@ -85,5 +86,22 @@ public class DialogUtils {
 
 		return alertDialog;
 	}
+
+	public static EnhancedDialog alert(String dialogHeader, Component component) {
+		EnhancedDialog alertDialog = new EnhancedDialog();
+		alertDialog.add(component);
+		alertDialog.setHeader(dialogHeader);
+		alertDialog.setCloseOnEsc(true);
+		alertDialog.setCloseOnOutsideClick(true);
+
+		CancelButton cancelButton = new CancelButton(cancelEvent -> {
+			alertDialog.close();
+		});
+		alertDialog.add(new HorizontalLayout(cancelButton));
+		alertDialog.open();
+
+		return alertDialog;
+	}
+
 
 }

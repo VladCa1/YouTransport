@@ -1,5 +1,6 @@
 package com.trans.services;
 
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
 
@@ -11,7 +12,7 @@ public interface RegistrationService {
 	
 	List<String> findAllUserNames();
 	
-	boolean registerUser(User user) throws URISyntaxException;
+	boolean registerUser(User user) throws URISyntaxException, IOException;
 	
 	void autoLogin(String username, String password);
 	

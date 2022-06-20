@@ -41,11 +41,25 @@ public class Route {
 	@OneToOne(cascade = CascadeType.ALL)
 	private Offer offer;
 
+	@Getter
+	@Setter
+	private String duration;
+
+	@Getter
+	@Setter
+	private String distance;
+
 	public Route(Location from, Location to, List<Location> intermediary) {
 		super();
 		this.from = from;
 		this.to = to;
 		this.intermediary = intermediary;
+	}
+
+	public Route(Location from, Location to) {
+		super();
+		this.from = from;
+		this.to = to;
 	}
 
 	public Route() {
@@ -60,4 +74,11 @@ public class Route {
 
 	}
 
+	public Route(Location to, Location from, String distance, String duration) {
+		super();
+		this.from = from;
+		this.to = to;
+		this.distance = distance;
+		this.duration = duration;
+	}
 }

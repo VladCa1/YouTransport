@@ -1,5 +1,6 @@
 package com.trans.services;
 
+import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
@@ -46,10 +47,11 @@ public class RegistrationServiceImpl implements RegistrationService{
 		}
 	}
     
-    public boolean registerUser(User user) throws URISyntaxException {
+    public boolean registerUser(User user) throws URISyntaxException, IOException {
     	WebClient client = WebClient.create();
     	User toRegister = new User(user.getUsername(), user.getPassword(), user.getEmail(), user.getFirstName(), user.getLastName(), user.getUserType(), user.getCompanyInfo());
-
+		toRegister.setImage(user.getImage());
+		toRegister.setPhoneNumber(user.getPhoneNumber());
     	URI uri = null;
     	if(toRegister.getUserType().equalsIgnoreCase("Goods")) {
     		uri = new URI("localhost:9061/agent/register/customer");

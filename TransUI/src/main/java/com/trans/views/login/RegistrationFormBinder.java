@@ -1,5 +1,7 @@
 package com.trans.views.login;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.util.regex.Pattern;
 
 import org.springframework.util.StringUtils;
@@ -13,6 +15,8 @@ import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.data.binder.ValidationResult;
 import com.vaadin.flow.data.binder.ValueContext;
+
+import javax.imageio.ImageIO;
 
 public class RegistrationFormBinder {
 
@@ -29,6 +33,8 @@ public class RegistrationFormBinder {
 	private boolean enableEmailValidation;
 
 	private boolean enableUsernameValidation;
+
+	private boolean enablePhoneValidation;
 
 	private boolean existValidation;
 
@@ -54,7 +60,8 @@ public class RegistrationFormBinder {
 		binder.forField(registrationForm.getFirstName()).withValidator(this::existValidator).bind("firstName");
 		
 		binder.forField(registrationForm.getLastName()).withValidator(this::existValidator).bind("lastName");
-		
+
+		binder.forField(registrationForm.getPhoneNumber()).withValidator(this::phoneValidator).bind("phoneNumber");
 
 		// The second password field is not connected to the Binder, but we
 		// want the binder to re-check the password validator when the field
@@ -95,6 +102,13 @@ public class RegistrationFormBinder {
 			
 		});
 
+		registrationForm.getPhoneNumber().addValueChangeListener(e ->{
+
+			enablePhoneValidation = true;
+			binder.validate();
+
+		});
+
 		// Set the label where bean-level error messages go
 		binder.setStatusLabel(registrationForm.getErrorMessageField());
 
@@ -109,6 +123,12 @@ public class RegistrationFormBinder {
 				
 				userBean.setUserType(registrationForm.getUserType().getValue().split(" ")[0]);
 
+				if(registrationForm.getFileData() == null){
+					throw new Exception("Please upload a profile picture");
+				}else{
+					BufferedImage imBuff = ImageIO.read(registrationForm.getFileData());
+					userBean.setImage(imBuff);
+				}
 				// Typically, you would here call backend to store the bean
 
 				// Show success message if everything went well
@@ -224,6 +244,25 @@ public class RegistrationFormBinder {
 		}
 		if(registrationService.findAllUserNames().contains(username)) {
 			return ValidationResult.error("Username already used");
+		}
+
+		return ValidationResult.ok();
+	}
+
+	private ValidationResult phoneValidator(String string, ValueContext ctx){
+
+		if(!StringUtils.hasLength(string)) {
+			return ValidationResult.error("Phone number cannot be empty");
+		}
+
+		if(!enablePhoneValidation) {
+			enablePhoneValidation = true;
+			return ValidationResult.ok();
+
+		}
+		String regexPatern = "^(\\+4|)?(07[0-8]{1}[0-9]{1}|02[0-9]{2}|03[0-9]{2}){1}?(\\s|\\.|\\-)?([0-9]{3}(\\s|\\.|\\-|)){2}$";
+		if(patternMatches(regexPatern, string)) {
+			return ValidationResult.error("Enter a valid username, no special chars or spaces");
 		}
 
 		return ValidationResult.ok();

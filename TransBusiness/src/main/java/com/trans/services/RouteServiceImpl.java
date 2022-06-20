@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.util.stream.Collectors;
 
 import com.trans.repositories.LocationRepository;
 
@@ -18,7 +19,7 @@ public class RouteServiceImpl implements RouteService{
 	@Override
 	public List<String> findAllCountries() {
 		List<String> countries = locationRepository.findAllCountries();
-		countries = countries.stream().distinct().toList();
+		countries = countries.stream().distinct().collect(Collectors.toList());
 		return countries;
 	}
 

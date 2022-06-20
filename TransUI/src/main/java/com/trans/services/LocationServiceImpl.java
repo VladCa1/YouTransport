@@ -1,20 +1,25 @@
 package com.trans.services;
 
+import java.io.IOException;
+import java.net.*;
 import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.ArrayList;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableKeyException;
 import java.util.Arrays;
 import java.util.List;
 
+import com.vaadin.flow.router.QueryParameters;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import com.trans.security.data.User;
-import com.trans.serviceInterface.models.AgentDTO;
-
-import reactor.core.publisher.Mono;
+import java.security.cert.CertificateException;
 
 @Service
 public class LocationServiceImpl implements LocationService{
@@ -49,6 +54,30 @@ public class LocationServiceImpl implements LocationService{
 	    .block();
 		
 		return Arrays.asList(response.getBody());
+	}
+
+
+	@Override
+	public Double getDistance(String fromCity, String fromCountry, String toCity, String toCountry) throws IOException, NoSuchAlgorithmException, KeyStoreException, CertificateException, UnrecoverableKeyException, KeyManagementException {
+
+		DistanceMatrixResponse response = getDirectionInfo(fromCity + " " + fromCountry, toCity + " " + toCountry);
+
+		return Double.valueOf(response.getRows().get(0).getElements().get(0).getDistance().getValue())/1000;
+
+	}
+
+	@Override
+	public DistanceMatrixResponse getDirectionInfo(String origins, String destinations) throws IOException, NoSuchAlgorithmException, KeyManagementException {
+		String uri = "https://maps.googleapis.com/maps/api/distancematrix/json?origins=" + origins + "&destinations=" + destinations + "&key=AIzaSyBT71UJMKu10kYUMALajWf_fKSyTMWAq6g";
+		RestTemplate restTemplate = new RestTemplate();
+
+		DistanceMatrixResponse response = restTemplate.getForObject(uri, DistanceMatrixResponse.class);
+		return response;
+	}
+
+	@Bean
+	public RestTemplate restTemplate(RestTemplateBuilder builder) {
+		return builder.build();
 	}
 
 }

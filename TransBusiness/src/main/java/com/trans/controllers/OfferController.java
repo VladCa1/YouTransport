@@ -2,15 +2,10 @@ package com.trans.controllers;
 
 import java.util.List;
 
+import com.trans.models.offer.TransportOffer;
+import com.trans.serviceInterface.models.TransportFormResultDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.trans.serviceInterface.models.GoodsFormResultDTO;
 import com.trans.services.OfferService;
@@ -24,7 +19,7 @@ public class OfferController {
 	
 	@PostMapping("/saveUpdate/goods")
 	public String saveUpdateGoods(@RequestBody GoodsFormResultDTO offer, @RequestHeader(value = "Authorization") String token) {
-		if(offerService.saveUpdate(offer, token)) {
+		if(offerService.saveUpdateGoods(offer, token)) {
 			return "SaveUpdated";
 		}else {
 			return "Failed";
@@ -49,5 +44,55 @@ public class OfferController {
 			return "Failed";
 		}
 	}
-	
+
+	@GetMapping("checkOffer/{id}")
+	public Boolean checkIfUserOwnsOffer(@RequestHeader(value = "Authorization") String token, @PathVariable Long id, @RequestParam String type){
+		if(offerService.checkUserOwnsOffer(token, id, type)){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	@GetMapping("/goods/{id}")
+	public GoodsFormResultDTO getGoodsOffer(@PathVariable Long id){
+		return offerService.getGoodsOffer(id);
+	}
+
+	@GetMapping("/goods/token/{id}")
+	public String getTokenForGoodsId(@PathVariable Long id){
+		return offerService.getGoodsTokenForId(id);
+	}
+
+	@GetMapping("/transport/token/{id}")
+	public String getTokenForTransportId(@PathVariable Long id){
+		return offerService.getTransportTokenForId(id);
+	}
+
+	@GetMapping("/transport/{id}")
+	public TransportFormResultDTO getTransportOffer(@PathVariable Long id){
+		return offerService.getTransportOffer(id);
+	}
+
+	@PostMapping("/transport/saveUpdate")
+	public boolean saveUpdateTransport(@RequestBody TransportFormResultDTO offer, @RequestHeader(value = "Authorization") String token){
+		return offerService.saveUpdateTransport(offer, token);
+	}
+
+	@DeleteMapping("/transport/delete/{id}")
+	public boolean deleteTransportOffer(@RequestHeader(value = "Authorization") String token, @PathVariable Long id) {
+		return offerService.deleteTransportOffer(token, id);
+	}
+
+	@GetMapping("/findAllUser/transport/")
+	public List<TransportFormResultDTO> findAllTransportForUser(@RequestHeader(value = "Authorization") String token) {
+		return offerService.getAllTransportForUser(token);
+	}
+
+	@GetMapping("/findAll/transport")
+	public List<TransportFormResultDTO> findAllTransport(){
+		return offerService.getAllTransport();
+	}
+
+
 }

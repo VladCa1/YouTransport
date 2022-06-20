@@ -2,6 +2,7 @@ package com.trans.controllers;
 
 import java.util.List;
 
+import com.trans.serviceInterface.models.AgentDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,23 +28,23 @@ public class AgentController {
     }
 	
 	@PostMapping("/register/customer")
-    public void register(@RequestBody CAgent agent) {
+    public void registerCustomer(@RequestBody AgentDTO agent) {
 //        if(agentService.registerAgent(agent) != null) {
 //        	return new ResponseEntity<>(HttpStatus.OK);
 //        }else {
 //        	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 //        }
-		agentService.registerAgent(agent);
+		agentService.registerAgent(agent, "Goods");
     }
 	
 	@PostMapping("/register/provider")
-    public void register(@RequestBody FTPAgent agent) {
+    public void registerProvider(@RequestBody AgentDTO agent) {
 //        if(agentService.registerAgent(agent) != null) {
 //        	return new ResponseEntity<>(HttpStatus.OK);
 //        }else {
 //        	return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 //        }
-		agentService.registerAgent(agent);
+		agentService.registerAgent(agent, "Transport");
     }
 	
 	

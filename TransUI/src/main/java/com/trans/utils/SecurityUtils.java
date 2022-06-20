@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.vaadin.flow.router.QueryParameters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -59,4 +60,5 @@ public final class SecurityUtils {
         	 return null;
          }
     }
+
 }

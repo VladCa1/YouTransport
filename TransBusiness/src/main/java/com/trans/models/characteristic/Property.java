@@ -9,9 +9,10 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Property {
 	
 	@Id
@@ -20,12 +21,19 @@ public class Property {
 	private Long id;
 	
 	@Getter
+	@Setter
 	@Column(nullable = false)
-	private String details;
+	protected String details;
 
-	public Property(String details) {
+	@Getter
+	@Setter
+	@Column(nullable = false)
+	protected Long numberOfChar;
+
+	public Property(String details, Long numberOfChar) {
 		super();
 		this.details = details;
+		this.numberOfChar = numberOfChar;
 	}
 	
 	public Property() {

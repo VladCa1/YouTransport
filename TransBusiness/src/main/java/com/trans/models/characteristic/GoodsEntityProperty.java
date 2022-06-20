@@ -1,5 +1,6 @@
 package com.trans.models.characteristic;
 
+import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -17,5 +18,11 @@ public class GoodsEntityProperty extends Property{
 	@Setter
 	@ManyToOne
 	private GoodsEntity goods;
+
+	public GoodsEntityProperty() {
+		super();
+	}
+
+	public GoodsEntityProperty(String details, Long id) { super(details, id); }
 	
 }

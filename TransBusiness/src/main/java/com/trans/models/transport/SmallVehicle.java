@@ -4,7 +4,7 @@ import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 @Entity
-@DiscriminatorValue(value = "SmallV")
+@DiscriminatorValue(value = "SmallVehicle")
 public class SmallVehicle extends TransportEntity{
 	
 	

@@ -29,7 +29,7 @@ public class Offer {
 	
 	@Getter
 	@Setter
-	@OneToOne(cascade = CascadeType.ALL, orphanRemoval=true)
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
 	private Route route;
 	
 	@Getter

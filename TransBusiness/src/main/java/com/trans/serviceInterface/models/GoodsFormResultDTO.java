@@ -54,6 +54,10 @@ public class GoodsFormResultDTO {
 	@Getter
 	@Setter
 	Double payValue;
+
+	@Getter
+	@Setter
+	String payCurrency;
 	
 	@Getter
 	@Setter
@@ -66,5 +70,12 @@ public class GoodsFormResultDTO {
 	@Getter
 	@Setter
 	LocalDate fromDate;
-	
+
+	@Getter
+	@Setter
+	String distance;
+
+	@Getter
+	@Setter
+	String duration;
 }

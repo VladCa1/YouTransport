@@ -2,12 +2,7 @@ package com.trans.models.offer;
 
 
 
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 import com.trans.models.agent.FTPAgent;
 import com.trans.models.transport.TransportEntity;
@@ -22,17 +17,21 @@ public class TransportOffer extends Offer{
 	@Getter
 	@Setter
 	@JoinColumn(name = "TO_AGENT")
-	@ManyToOne
+	@ManyToOne( cascade = CascadeType.ALL)
 	private FTPAgent providerAgent;
 	
 	@Getter
 	@Setter
 	@Column(nullable = true)
 	private String providerData;
+
+	@Getter
+	@Setter
+	private int maxDistanceFromSource;
 	
 	@Getter
 	@Setter
-	@OneToOne
+	@OneToOne( cascade = CascadeType.ALL)
 	@JoinColumn(name = "TO_TEntity")
 	private TransportEntity transportEntity;
 	

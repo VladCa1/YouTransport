@@ -1,6 +1,15 @@
 package com.trans.services;
 
+import com.vaadin.flow.router.QueryParameters;
+import net.minidev.json.JSONObject;
+
+import java.security.KeyManagementException;
+import java.security.cert.CertificateException;
+import java.io.IOException;
 import java.net.URISyntaxException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.UnrecoverableKeyException;
 import java.util.List;
 
 public interface LocationService {
@@ -8,5 +17,8 @@ public interface LocationService {
 	List<String> findAllCountries() throws URISyntaxException;
 	
 	List<String> findAllCitiesForCountry(String country) throws URISyntaxException;
-	
+
+	Double getDistance(String fromCity, String fromCountry, String toCity, String toCountry) throws IOException, NoSuchAlgorithmException, KeyStoreException, CertificateException, UnrecoverableKeyException, KeyManagementException;
+
+	DistanceMatrixResponse getDirectionInfo(String origins, String destinations) throws IOException, NoSuchAlgorithmException, KeyManagementException;
 }

@@ -1,5 +1,6 @@
 package com.trans.security;
 
+import com.trans.views.myOffers.MyOffersViewImpl;
 import org.springframework.stereotype.Component;
 
 import com.trans.utils.SecurityUtils;
@@ -37,6 +38,9 @@ public class ConfigureUIServiceInitListener implements VaadinServiceInitListener
 		
 		if(LoginView.class.equals(event.getNavigationTarget()) &&
 				SecurityUtils.isUserLoggedIn() && RegisterView.class.equals(event.getNavigationTarget())) {
+			event.rerouteTo(MainLayout.class);
+		}
+		if(MyOffersViewImpl.class.equals(event.getNavigationTarget()) && !SecurityUtils.isUserLoggedIn()) {
 			event.rerouteTo(MainLayout.class);
 		}
 		
