@@ -1,13 +1,13 @@
-package com.trans.services;
+package com.trans.serviceInterface.models;
 
-public class Distance {
+public class DurationMatrix {
     private String text;
     private String value;
 
-    public Distance() {
+    public DurationMatrix() {
     }
 
-    public Distance(String text, String value) {
+    public DurationMatrix(String text, String value) {
         this.text = text;
         this.value = value;
     }
@@ -30,3 +30,4 @@ public class Distance {
 
 
 }
+

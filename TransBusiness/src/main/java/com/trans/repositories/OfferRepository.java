@@ -8,7 +8,9 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.trans.models.offer.GoodsOffer;
 import com.trans.models.offer.Offer;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface OfferRepository extends JpaRepository<Offer, Long>{
 
 	@Query("select off from GoodsOffer off where off.providerAgent.token = :token")

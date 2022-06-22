@@ -3,6 +3,7 @@ package com.trans.views;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.trans.views.distance.DistanceViewImpl;
 import com.trans.views.drivers.DriverViewImpl;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
@@ -168,6 +169,7 @@ public class MainLayout extends AppLayout {
                 }
 				add(new MenuItemInfo("Goods Offers", new Icon(VaadinIcon.PACKAGE), GoodsViewImpl.class));
 				add(new MenuItemInfo("Transport Offers", new Icon(VaadinIcon.TRUCK), TransportViewImpl.class));
+                add(new MenuItemInfo("Calculate Distance", new Icon(VaadinIcon.MAP_MARKER), DistanceViewImpl.class));
 			}else {
 				add(new MenuItemInfo("About Transport You", new Icon(VaadinIcon.GLOBE), AboutView.class));
 			}

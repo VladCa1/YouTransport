@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.trans.serviceInterface.models.TransportFormResultDTO;
 import com.vaadin.flow.router.QueryParameters;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -19,6 +20,9 @@ import reactor.core.publisher.Mono;
 
 @Service
 public class OfferServiceImpl implements OfferService{
+
+	@Autowired
+	WebClient maxSizeWebClient;
 
 	@Override
 	public boolean saveUpdateGoods(GoodsFormResultEntryDTO goodsFormResult) {
@@ -154,11 +158,10 @@ public class OfferServiceImpl implements OfferService{
 
 	@Override
 	public TransportFormResultDTO getTransportOffer(Long id) throws Exception {
-		WebClient client = WebClient.create();
 
 		String uri = "localhost:9061/offer/transport/" + id.toString();
 
-		ResponseEntity<TransportFormResultDTO> response = client.get()
+		ResponseEntity<TransportFormResultDTO> response = maxSizeWebClient.get()
 				.uri(uriBuilder -> uriBuilder.path(uri)
 						.build())
 				.accept(MediaType.APPLICATION_JSON)
@@ -213,7 +216,6 @@ public class OfferServiceImpl implements OfferService{
 
 	@Override
 	public List<TransportFormResultDTO> getAllTransportOffers() {
-		WebClient client = WebClient.create();
 
 		URI uri = null;
 		try {
@@ -222,7 +224,7 @@ public class OfferServiceImpl implements OfferService{
 			e.printStackTrace();
 		}
 
-		ResponseEntity<TransportFormResultDTO[]> response = client.get()
+		ResponseEntity<TransportFormResultDTO[]> response = maxSizeWebClient.get()
 				.uri(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.retrieve()
@@ -233,7 +235,6 @@ public class OfferServiceImpl implements OfferService{
 
 	@Override
 	public List<TransportFormResultDTO> getTransportOfferForUser() {
-		WebClient client = WebClient.create();
 
 		URI uri = null;
 		try {
@@ -242,7 +243,7 @@ public class OfferServiceImpl implements OfferService{
 			e.printStackTrace();
 		}
 
-		ResponseEntity<TransportFormResultDTO[]> response = client.get()
+		ResponseEntity<TransportFormResultDTO[]> response = maxSizeWebClient.get()
 				.uri(uri)
 				.accept(MediaType.APPLICATION_JSON)
 				.header("Authorization", SecurityUtils.getUserToken())

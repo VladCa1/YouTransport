@@ -38,6 +38,10 @@ public class GoodsFormResultEntryDTO {
 	@Getter
 	@Setter
 	Double goodsPalletSize;
+
+	@Getter
+	@Setter
+	Double tonnage;
 	
 	@Getter
 	@Setter

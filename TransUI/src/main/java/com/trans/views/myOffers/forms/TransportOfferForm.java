@@ -1,9 +1,8 @@
 package com.trans.views.myOffers.forms;
 
 import com.trans.serviceInterface.models.DriverResultEntryDTO;
-import com.trans.serviceInterface.models.GoodsFormResultEntryDTO;
 import com.trans.serviceInterface.models.TransportFormResultDTO;
-import com.trans.services.DistanceMatrixResponse;
+import com.trans.serviceInterface.models.DistanceMatrixResponse;
 import com.trans.services.DriverService;
 import com.trans.services.LocationService;
 import com.trans.views.widgets.*;
@@ -19,7 +18,6 @@ import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
-import com.vaadin.flow.component.listbox.MultiSelectListBox;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.select.Select;

@@ -1,4 +1,4 @@
-package com.trans.services;
+package com.trans.serviceInterface.models;
 
 import java.util.List;
 

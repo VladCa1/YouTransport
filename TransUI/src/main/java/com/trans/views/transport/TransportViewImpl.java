@@ -146,7 +146,7 @@ public class TransportViewImpl extends VerticalLayout implements TransportView, 
 			component.add(typeLayout, makeLayout, makeType, tonnage);
 			return component;
 		})).setHeader("Vehicle").setKey("vehicle");
-		grid.getColumnByKey("vehicle").setWidth("150px");
+		grid.getColumnByKey("vehicle").setAutoWidth(true);
 		grid.addColumn(new ComponentRenderer<>(offer ->{
 			VerticalLayout component = new VerticalLayout();
 			HorizontalLayout fromLayout = new HorizontalLayout();

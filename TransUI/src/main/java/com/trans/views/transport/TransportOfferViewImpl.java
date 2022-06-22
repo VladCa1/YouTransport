@@ -67,6 +67,7 @@ public class TransportOfferViewImpl extends VerticalLayout implements TransportO
 
 
         mainLayout = new HorizontalLayout();
+        mainLayout.getStyle().set("margin-left","30px");
         offerOwnerLayout = new VerticalLayout();
         form = new TransportOfferForm(presenter.getLocationService(), presenter.getDriverService(), false);
         this.offerOwnerLayout.getStyle().set("border", "1px solid lightgray");

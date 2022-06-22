@@ -20,6 +20,10 @@ public class PalletGoods extends GoodsEntity{
 	@Getter
 	@Setter
 	private String unit;
+
+	@Getter
+	@Setter
+	private double palletSize;
 	
 	@Getter
 	@Setter
@@ -33,10 +37,11 @@ public class PalletGoods extends GoodsEntity{
 	@Setter
 	private boolean canBeStacked;
 	
-	public PalletGoods(double value, String unit, double palletSize) {
+	public PalletGoods(double value, String unit, double palletSize, double tonnage) {
 		this.unit = unit;
 		this.value = value;
-		this.tonnage = palletSize;
+		this.tonnage = tonnage;
+		this.palletSize = palletSize;
 		canBeStacked = true;
 	}
 	

@@ -93,13 +93,13 @@ public class OfferServiceImpl implements OfferService{
 		GoodsEntity goods = null;
 		switch(offer.getGoodsType()) {
 		case(GoodsEntity.FREE_FLOW_GOODS):
-			goods = new FreeFlowGoods(offer.getGoodsSize(), "L", 5000.0);
+			goods = new FreeFlowGoods(offer.getGoodsSize(), "L", offer.getGoodsSize());
 			break;
 		case(GoodsEntity.LIQUID_GOODS):
-			goods = new LiquidGoods(offer.getGoodsSize(), "L", 5000.0);
+			goods = new LiquidGoods(offer.getGoodsSize(), "L", offer.getGoodsSize());
 			break;
 		case(GoodsEntity.PALLET_GOODS):
-			goods = new PalletGoods(offer.getGoodsSize(), "Number x T", offer.getGoodsPalletSize());
+			goods = new PalletGoods(offer.getGoodsSize(), "Number x T", offer.getGoodsPalletSize(),offer.getGoodsPalletSize() * offer.getGoodsSize());
 			break;
 		}
 		List<GoodsEntityProperty> goodsEntityProperties = new ArrayList<>();
@@ -198,7 +198,8 @@ public class OfferServiceImpl implements OfferService{
 		case PALLET:
 			item.setGoodsType(GoodsEntity.PALLET_GOODS);
 			item.setGoodsSize(((PalletGoods)goodsOffer.getGoods().get(0)).getValue());
-			item.setGoodsPalletSize(((PalletGoods)goodsOffer.getGoods().get(0)).getTonnage());
+			item.setTonnage(((PalletGoods)goodsOffer.getGoods().get(0)).getTonnage());
+			item.setGoodsPalletSize(((PalletGoods)goodsOffer.getGoods().get(0)).getPalletSize());
 			break;
 		case LIQUID:
 			item.setGoodsType(GoodsEntity.LIQUID_GOODS);

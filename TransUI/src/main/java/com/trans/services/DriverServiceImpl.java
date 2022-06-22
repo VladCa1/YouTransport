@@ -2,6 +2,7 @@ package com.trans.services;
 
 import com.trans.serviceInterface.models.DriverResultEntryDTO;
 import com.trans.utils.SecurityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,9 @@ import java.util.List;
 
 @Service
 public class DriverServiceImpl implements DriverService{
+
+    @Autowired
+    WebClient maxSizeWebClient;
 
     @Override
     public boolean addDriver(DriverResultEntryDTO driver) {
@@ -35,11 +39,10 @@ public class DriverServiceImpl implements DriverService{
 
     @Override
     public List<DriverResultEntryDTO> getAllDriversForUser() {
-        WebClient client = WebClient.create();
 
         String uri = "localhost:9061/driver/findAllForUser";
 
-        ResponseEntity<DriverResultEntryDTO[]> response = client.get()
+        ResponseEntity<DriverResultEntryDTO[]> response = maxSizeWebClient.get()
                 .uri(uri)
                 .header("Authorization", SecurityUtils.getUserToken())
                 .accept(MediaType.APPLICATION_JSON)

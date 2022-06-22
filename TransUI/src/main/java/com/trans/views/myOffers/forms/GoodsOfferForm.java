@@ -1,7 +1,7 @@
 package com.trans.views.myOffers.forms;
 
 import com.trans.serviceInterface.models.GoodsFormResultEntryDTO;
-import com.trans.services.DistanceMatrixResponse;
+import com.trans.serviceInterface.models.DistanceMatrixResponse;
 import com.trans.services.LocationService;
 import com.trans.views.widgets.GoodsTypeSelect;
 import com.trans.views.widgets.LocationSelect;

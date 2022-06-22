@@ -1,6 +1,5 @@
 package com.trans.views.goods;
 
-import com.trans.services.Distance;
 import com.trans.views.myOffers.forms.GoodsOfferForm;
 import com.vaadin.flow.component.html.Image;
 import com.vaadin.flow.component.textfield.TextField;

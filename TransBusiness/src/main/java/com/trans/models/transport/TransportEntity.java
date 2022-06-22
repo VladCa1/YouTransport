@@ -1,12 +1,11 @@
 package com.trans.models.transport;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
 
-import com.trans.models.StringListConverter;
+import com.trans.utils.StringListConverter;
 import com.trans.models.characteristic.TransportEntityProperty;
 import com.trans.models.offer.TransportOffer;
 
